@@ -22,5 +22,6 @@ router.post('/upload-avatar', upload.single('avatar'), asyncHandler(userControll
 router.post('/', checkPermission(['create_user']), asyncHandler(userController.createUser));
 router.delete('/:id', checkPermission(['delete_user']), asyncHandler(userController.deleteUser));
 router.patch('/:id/toggle-status', checkPermission(['update_user']), asyncHandler(userController.toggleUserStatus));
+router.patch('/:userId/assign-role', checkPermission(['manage_roles']), asyncHandler(userController.assignRole));
 
 module.exports = router;

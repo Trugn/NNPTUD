@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Role = require('../models/Role');
 const bcryptjs = require('bcryptjs');
 
 // Get all users
@@ -151,6 +152,49 @@ exports.toggleUserStatus = async (req, res) => {
     res.json({
       message: `User status changed to ${user.isActive ? 'active' : 'inactive'}`,
       isActive: user.isActive,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Assign role to user
+exports.assignRole = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { roleName } = req.body;
+
+    if (!roleName) {
+      return res.status(400).json({ error: 'Role name is required' });
+    }
+
+    // Find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find role
+    const role = await Role.findOne({ name: roleName });
+    if (!role) {
+      return res.status(404).json({ error: `Role '${roleName}' not found` });
+    }
+
+    // Assign role (replace existing roles)
+    user.roles = [role._id];
+    await user.save();
+
+    // Populate role data for response
+    await user.populate('roles');
+
+    res.json({
+      message: `User role changed to '${roleName}' successfully`,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        roles: user.roles,
+      },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
