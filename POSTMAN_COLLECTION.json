@@ -1,8 +1,9 @@
 {
   "info": {
     "name": "NNPTUD Backend API",
-    "description": "Complete API collection for NNPTUD Backend",
+    "description": "Complete API collection for NNPTUD Backend with Authentication, Authorization, User CRUD & Upload",
     "version": "1.0.0",
+    "_postman_id": "nnptud-api-collection",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -10,7 +11,7 @@
       "name": "Authentication",
       "item": [
         {
-          "name": "Register",
+          "name": "[1] Register User",
           "request": {
             "method": "POST",
             "header": [

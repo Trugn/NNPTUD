@@ -51,6 +51,12 @@ exports.register = async (req, res) => {
       isVerified: false,
     });
 
+    // Assign default "user" role
+    const userRole = await Role.findOne({ name: 'user' });
+    if (userRole) {
+      user.roles.push(userRole._id);
+    }
+
     await user.save();
 
     // Create verification token
