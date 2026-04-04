@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Role = require('../models/Role');
 const RefreshToken = require('../models/RefreshToken');
 const Session = require('../models/Session');
 const EmailVerification = require('../models/EmailVerification');
