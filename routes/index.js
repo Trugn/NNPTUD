@@ -2,6 +2,7 @@ const authRoutes = require('./authRoutes');
 const userRoutes = require('./userRoutes');
 const categoryRoutes = require('./categoryRoutes');
 const productRoutes = require('./productRoutes');
+const cartRoutes = require('./cartRoutes');
 
 // Setup all routes
 const setupRoutes = (app) => {
@@ -12,6 +13,8 @@ const setupRoutes = (app) => {
     app.use('/api/categories', categoryRoutes);
 
     app.use('/api/products', productRoutes);
+
+    app.use('/api/cart', cartRoutes);
 
     // Health check
     app.get('/health', (req, res) => {
