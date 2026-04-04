@@ -1,0 +1,349 @@
+{
+  "info": {
+    "_postman_id": "product-api-collection",
+    "name": "Product API Collection",
+    "description": "Complete Product API Testing Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Product - Public Routes",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Get all products (Public - No authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            },
+            "description": "Get product by ID (Public - No authentication required)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "category", "{{categoryId}}"]
+            },
+            "description": "Get all products in a specific category (Public - No authentication required)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product - Admin Routes",
+      "item": [
+        {
+          "name": "Create Product (Without Image)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Dell XPS 13\",\n  \"description\": \"High-performance laptop with excellent battery life\",\n  \"price\": 999.99,\n  \"inventory\": 50,\n  \"category\": \"{{categoryId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Create new product without image (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product (With Image)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "iPhone 15 Pro",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Latest iPhone with advanced features and powerful processor\",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1299.99",
+                  "type": "text"
+                },
+                {
+                  "key": "inventory",
+                  "value": "100",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "{{categoryId}}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Create new product with image (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product (Without Image)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Dell XPS 13 - Updated\",\n  \"description\": \"Updated description for the laptop\",\n  \"price\": 1099.99,\n  \"inventory\": 45\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            },
+            "description": "Update product without changing image (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product (With Image)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "iPhone 15 Pro - Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description with new features\",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "1399.99",
+                  "type": "text"
+                },
+                {
+                  "key": "inventory",
+                  "value": "80",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            },
+            "description": "Update product with new image (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            },
+            "description": "Delete product (Admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product - Inventory Management",
+      "item": [
+        {
+          "name": "Add Inventory",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}/add-inventory",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}", "add-inventory"]
+            },
+            "description": "Add quantity to product inventory (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Reduce Inventory",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}/reduce-inventory",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}", "reduce-inventory"]
+            },
+            "description": "Reduce inventory when product is sold (Admin only)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string",
+      "description": "Admin user authentication token"
+    },
+    {
+      "key": "productId",
+      "value": "",
+      "type": "string",
+      "description": "Product ID for testing"
+    },
+    {
+      "key": "categoryId",
+      "value": "",
+      "type": "string",
+      "description": "Category ID for product creation/filtering"
+    }
+  ]
+}
