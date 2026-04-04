@@ -26,21 +26,9 @@ const connectDB = async () => {
 };
 
 // Routes
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
+const setupRoutes = require('./routes/index');
 
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Server is running' });
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+setupRoutes(app);
 
 // Error handler
 app.use((err, req, res, next) => {

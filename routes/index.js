@@ -1,19 +1,36 @@
-const express = require('express');
-const router = express.Router();
+const authRoutes = require('./authRoutes');
+const userRoutes = require('./userRoutes');
+const categoryRoutes = require('./categoryRoutes');
 
-// Import controllers (lúc sau bạn sẽ tạo thêm)
-// const userController = require('../controllers/userController');
+// Setup all routes
+const setupRoutes = (app) => {
+  app.use(
+    '/api/auth',
+    authRoutes
+  );
 
-// Routes example
-router.get('/test', (req, res) => {
-  res.json({ message: 'API test route working!' });
-});
+  app.use(
+    '/api/users',
+    userRoutes
+  );
 
-// Thêm các routes khác ở đây
-// router.get('/users', userController.getUsers);
-// router.post('/users', userController.createUser);
-// router.get('/users/:id', userController.getUserById);
-// router.put('/users/:id', userController.updateUser);
-// router.delete('/users/:id', userController.deleteUser);
+  app.use(
+    '/api/categories',
+    categoryRoutes
+  );
 
-module.exports = router;
+  // Health check
+  app.get(
+    '/health',
+    (req, res) => {
+      res.json({ status: 'OK', message: 'Server is running' });
+    }
+  );
+
+  // 404 handler
+  app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+  });
+};
+
+module.exports = setupRoutes;
