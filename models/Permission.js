@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const permissionSchema = new mongoose.Schema(
   {
@@ -7,14 +7,25 @@ const permissionSchema = new mongoose.Schema(
       required: true,
       unique: true,
       enum: [
-        'create_user',
-        'read_user',
-        'update_user',
-        'delete_user',
-        'manage_roles',
-        'manage_permissions',
-        'view_logs',
-        'export_data',
+        "create_user",
+        "read_user",
+        "update_user",
+        "delete_user",
+        "manage_roles",
+        "manage_permissions",
+        "view_logs",
+        "export_data",
+        "view_orders",
+        "update_orders",
+        "delete_orders",
+        "create_product",
+        "read_product",
+        "update_product",
+        "delete_product",
+        "create_category",
+        "read_category",
+        "update_category",
+        "delete_category",
       ],
     },
     displayName: {
@@ -26,7 +37,15 @@ const permissionSchema = new mongoose.Schema(
     },
     module: {
       type: String,
-      enum: ['User', 'Role', 'Permission', 'System'],
+      enum: [
+        "User",
+        "Role",
+        "Permission",
+        "System",
+        "Order",
+        "Product",
+        "Category",
+      ],
     },
     isActive: {
       type: Boolean,
@@ -35,7 +54,7 @@ const permissionSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model('Permission', permissionSchema);
+module.exports = mongoose.model("Permission", permissionSchema);

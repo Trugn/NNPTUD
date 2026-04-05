@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Laptop Dell XPS 13",
+    "description": "High-performance laptop with excellent battery life",
+    "price": 25000000,
+    "stock": 10,
+    "category": "computers"
+  },
+  {
+    "name": "Mouse Logitech MX",
+    "description": "Wireless mouse with advanced tracking",
+    "price": 500000,
+    "stock": 50,
+    "category": "accessories"
+  },
+  {
+    "name": "iPhone 15 Pro",
+    "description": "Latest iPhone with advanced features",
+    "price": 30000000,
+    "stock": 20,
+    "category": "mobile-devices"
+  },
+  {
+    "name": "iPad Air",
+    "description": "Powerful tablet for work and entertainment",
+    "price": 15000000,
+    "stock": 15,
+    "category": "mobile-devices"
+  },
+  {
+    "name": "USB-C Cable",
+    "description": "Fast charging USB-C cable",
+    "price": 200000,
+    "stock": 100,
+    "category": "accessories"
+  },
+  {
+    "name": "Samsung Monitor 27\"",
+    "description": "4K display monitor",
+    "price": 5000000,
+    "stock": 8,
+    "category": "computers"
+  }
+]

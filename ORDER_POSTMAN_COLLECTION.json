@@ -1,0 +1,348 @@
+{
+  "info": {
+    "name": "Order API Collection",
+    "description": "Complete CRUD API for Order management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User - Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"items\": [\n    {\n      \"product\": \"PRODUCT_ID_1\",\n      \"quantity\": 2\n    },\n    {\n      \"product\": \"PRODUCT_ID_2\",\n      \"quantity\": 1\n    }\n  ],\n  \"shippingAddress\": {\n    \"fullName\": \"Nguyễn Văn A\",\n    \"phone\": \"0912345678\",\n    \"address\": \"123 Đường ABC\",\n    \"city\": \"TP. Hồ Chí Minh\",\n    \"district\": \"Quận 1\",\n    \"ward\": \"Phường 1\",\n    \"postalCode\": \"700001\"\n  },\n  \"paymentMethod\": \"cash_on_delivery\",\n  \"notes\": \"Ghi chú thêm\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "User - Get My Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders/me?page=1&limit=10&status=pending",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "me"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "status",
+              "value": "pending",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "User - Get Order Detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders/me/ORDER_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "me", "ORDER_ID"]
+        }
+      }
+    },
+    {
+      "name": "User - Update Order",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"shippingAddress\": {\n    \"fullName\": \"Nguyễn Văn A\",\n    \"phone\": \"0912345699\",\n    \"address\": \"456 Đường XYZ\",\n    \"city\": \"TP. Hồ Chí Minh\",\n    \"district\": \"Quận 2\",\n    \"ward\": \"Phường 2\",\n    \"postalCode\": \"700002\"\n  },\n  \"notes\": \"Ghi chú cập nhật\",\n  \"paymentMethod\": \"credit_card\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders/me/ORDER_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "me", "ORDER_ID"]
+        }
+      }
+    },
+    {
+      "name": "User - Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cancelReason\": \"Tôi muốn hủy đơn hàng này\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders/me/ORDER_ID/cancel",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "me", "ORDER_ID", "cancel"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Get All Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders?page=1&limit=20&status=processing&paymentStatus=completed",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "status",
+              "value": "processing",
+              "disabled": true
+            },
+            {
+              "key": "paymentStatus",
+              "value": "completed",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Admin - Get Order Statistics",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders/stats",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "stats"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Get Order Detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders/ORDER_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "ORDER_ID"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Update Order Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderStatus\": \"shipped\",\n  \"paymentStatus\": \"completed\",\n  \"trackingNumber\": \"TRACK123456\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders/ORDER_ID/status",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "ORDER_ID", "status"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Update Order",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"shippingAddress\": {\n    \"fullName\": \"Nguyễn Văn A\",\n    \"phone\": \"0912345678\",\n    \"address\": \"123 Đường ABC\",\n    \"city\": \"TP. Hồ Chí Minh\",\n    \"district\": \"Quận 1\",\n    \"ward\": \"Phường 1\",\n    \"postalCode\": \"700001\"\n  },\n  \"notes\": \"Ghi chú từ admin\",\n  \"paymentMethod\": \"bank_transfer\",\n  \"orderStatus\": \"processing\",\n  \"paymentStatus\": \"completed\",\n  \"trackingNumber\": \"VN123456\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders/ORDER_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "ORDER_ID"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cancelReason\": \"Hủy do lỗi hệ thống\"\n}\n"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/orders/ORDER_ID/cancel",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "ORDER_ID", "cancel"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Delete Order",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admin_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/orders/ORDER_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "orders", "ORDER_ID"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "your_user_token_here"
+    },
+    {
+      "key": "admin_token",
+      "value": "your_admin_token_here"
+    }
+  ]
+}

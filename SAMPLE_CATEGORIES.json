@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Electronics",
+    "description": "All electronic devices and gadgets",
+    "slug": "electronics"
+  },
+  {
+    "name": "Computers",
+    "description": "Laptops, desktops, and computer accessories",
+    "slug": "computers"
+  },
+  {
+    "name": "Mobile Devices",
+    "description": "Smartphones, tablets, and mobile accessories",
+    "slug": "mobile-devices"
+  },
+  {
+    "name": "Accessories",
+    "description": "Cables, chargers, adapters, and other accessories",
+    "slug": "accessories"
+  }
+]
