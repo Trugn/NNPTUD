@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const AuditLog = require('../models/AuditLog');
 const LoginAttempt = require('../models/LoginAttempt');
 
 // Async handler wrapper
@@ -63,17 +62,6 @@ exports.checkPermission = (requiredPermissions) => {
       );
 
       if (!hasPermission) {
-        // Log audit
-        await AuditLog.create({
-          user: req.userId,
-          action: 'update',
-          resource: 'User',
-          status: 'failed',
-          errorMessage: 'Permission denied',
-          ipAddress: req.ip,
-          userAgent: req.headers['user-agent'],
-        });
-
         return res
           .status(403)
           .json({ error: 'Permission denied', requiredPermissions });
@@ -112,21 +100,4 @@ exports.trackLoginAttempt = async (email, isSuccess, failureReason = null, req) 
   }
 };
 
-// Log audit
-exports.logAudit = async (userId, action, resource, resourceId = null, changes = null, status = 'success', errorMessage = null, req) => {
-  try {
-    await AuditLog.create({
-      user: userId,
-      action,
-      resource,
-      resourceId,
-      changes,
-      status,
-      errorMessage,
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    });
-  } catch (error) {
-    console.error('Error logging audit:', error);
-  }
-};
+

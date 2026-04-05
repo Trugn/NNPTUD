@@ -5,8 +5,7 @@ const RefreshToken = require('../models/RefreshToken');
 const Session = require('../models/Session');
 const EmailVerification = require('../models/EmailVerification');
 const PasswordReset = require('../models/PasswordReset');
-const AuditLog = require('../models/AuditLog');
-const { trackLoginAttempt, logAudit } = require('../middleware/authMiddleware');
+const { trackLoginAttempt } = require('../middleware/authMiddleware');
 const crypto = require('crypto');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
@@ -70,9 +69,6 @@ exports.register = async (req, res) => {
       tokenHash,
       expiresAt,
     });
-
-    // Log audit
-    await logAudit(user._id, 'create', 'User', user._id, null, 'success', null, req);
 
     res.status(201).json({
       message: 'Registration successful. Please verify your email.',
@@ -201,9 +197,6 @@ exports.login = async (req, res) => {
     // Track successful login
     await trackLoginAttempt(email, true, null, req);
 
-    // Log audit
-    await logAudit(user._id, 'login', 'User', user._id, null, 'success', null, req);
-
     res.json({
       message: 'Login successful',
       accessToken,
@@ -241,9 +234,6 @@ exports.logout = async (req, res) => {
         { logoutAt: new Date(), isActive: false }
       );
     }
-
-    // Log audit
-    await logAudit(req.userId, 'logout', 'User', req.userId, null, 'success', null, req);
 
     res.json({ message: 'Logout successful' });
   } catch (error) {
@@ -331,9 +321,6 @@ exports.forgotPassword = async (req, res) => {
       ipAddress: req.ip,
     });
 
-    // Log audit
-    await logAudit(user._id, 'update', 'User', user._id, null, 'success', null, req);
-
     res.json({
       message: 'Password reset link sent to email',
       resetToken: token, // In production, send via email
@@ -381,9 +368,6 @@ exports.resetPassword = async (req, res) => {
     resetToken.isUsed = true;
     resetToken.usedAt = new Date();
     await resetToken.save();
-
-    // Log audit
-    await logAudit(user._id, 'update', 'User', user._id, null, 'success', null, req);
 
     res.json({ message: 'Password reset successful' });
   } catch (error) {

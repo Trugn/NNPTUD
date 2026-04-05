@@ -3,7 +3,7 @@
 ## ✅ Project Setup
 
 - [x] Node.js dependencies installed (`npm install`)
-- [x] 9 Database Models created (User, Role, Permission, RefreshToken, Session, AuditLog, PasswordReset, EmailVerification, LoginAttempt)
+- [x] 8 Database Models created (User, Role, Permission, RefreshToken, Session, PasswordReset, EmailVerification, LoginAttempt)
 - [x] Authentication system (Register, Login, Email Verification, Password Reset)
 - [x] Authorization system (Role-based access control)
 - [x] User CRUD operations
@@ -38,7 +38,6 @@ NNPTUD/
 │   ├── [✓] Permission.js            Permission schema
 │   ├── [✓] RefreshToken.js          Refresh token storage
 │   ├── [✓] Session.js               Session tracking
-│   ├── [✓] AuditLog.js              Audit trail
 │   ├── [✓] PasswordReset.js         Password reset tokens
 │   ├── [✓] EmailVerification.js     Email verification tokens
 │   └── [✓] LoginAttempt.js          Login attempt tracking
@@ -157,7 +156,6 @@ Follow step-by-step in `POSTMAN_GUIDE.md`:
 | **Permission** | Permissions | name, module, isActive |
 | **RefreshToken** | Token storage | user, token, expiresAt, isRevoked |
 | **Session** | Session tracking | user, accessToken, refreshToken, device |
-| **AuditLog** | Action history | user, action, resource, changes |
 | **PasswordReset** | Password reset | user, token, expiresAt, isUsed |
 | **EmailVerification** | Email verify | user, token, expiresAt, isVerified |
 | **LoginAttempt** | Login tracking | email, isSuccess, failureReason |

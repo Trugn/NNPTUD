@@ -1,0 +1,577 @@
+{
+  "info": {
+    "_postman_id": "8models-collection",
+    "name": "8 Models API Testing - User, Role, Permission, RefreshToken, Session, PasswordReset, EmailVerification, LoginAttempt",
+    "description": "Complete API testing collection for all 8 core models (excluding Cart, Product, Category)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication & User Management",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser1\",\n  \"email\": \"testuser1@example.com\",\n  \"password\": \"Test@12345\",\n  \"passwordConfirm\": \"Test@12345\",\n  \"fullName\": \"Test User One\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register a new user (creates User, EmailVerification model instance)"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{verification_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/verify-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "verify-email"
+              ]
+            },
+            "description": "Verify user email address (updates EmailVerification model)"
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser1@example.com\",\n  \"password\": \"Test@12345\",\n  \"deviceName\": \"Postman\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login user (creates Session, RefreshToken, and LoginAttempt models)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Get current authenticated user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "logout"
+              ]
+            },
+            "description": "Logout user (updates RefreshToken and Session models)"
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"Test@12345\",\n  \"newPassword\": \"NewTest@12345\",\n  \"newPasswordConfirm\": \"NewTest@12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/change-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "change-password"
+              ]
+            },
+            "description": "Change password for authenticated user (updates User model)"
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/refresh-token",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh-token"
+              ]
+            },
+            "description": "Refresh access token using refresh token (uses RefreshToken model)"
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser1@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "Send password reset email (creates PasswordReset model instance)"
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{reset_token}}\",\n  \"newPassword\": \"ResetTest@12345\",\n  \"confirmPassword\": \"ResetTest@12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password"
+              ]
+            },
+            "description": "Reset password using reset token (updates User model, uses PasswordReset model)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Management (Admin)",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Get all users (requires read_user permission)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ]
+            },
+            "description": "Get specific user by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Updated User Name\",\n  \"email\": \"newemail@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ]
+            },
+            "description": "Update user profile information (updates User model)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create User (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newadminuser\",\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"AdminPass@123\",\n  \"fullName\": \"New Admin User\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Create new user (admin only, requires create_user permission)"
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Role to User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleName\": \"{{role_name}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{target_user_id}}/assign-role",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{target_user_id}}",
+                "assign-role"
+              ]
+            },
+            "description": "Assign role to user (requires manage_roles permission, updates User and Role models)"
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}/toggle-status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}",
+                "toggle-status"
+              ]
+            },
+            "description": "Toggle user active/inactive status (requires update_user permission, updates User model)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ]
+            },
+            "description": "Delete user (admin only, requires delete_user permission)"
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "/path/to/avatar/image.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/upload-avatar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "upload-avatar"
+              ]
+            },
+            "description": "Upload user avatar image (updates User model)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "verification_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "reset_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "target_user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "role_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

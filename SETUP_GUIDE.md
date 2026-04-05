@@ -233,7 +233,6 @@ Database not found?
 ```bash
 # In MongoDB compass or CLI
 use nnptud
-db.auditlogs.find().pretty()
 db.loginattempts.find().pretty()
 ```
 

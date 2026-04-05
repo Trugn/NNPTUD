@@ -17,7 +17,6 @@ NNPTUD/
 │   ├── Permission.js
 │   ├── RefreshToken.js
 │   ├── Session.js
-│   ├── AuditLog.js
 │   ├── PasswordReset.js
 │   ├── EmailVerification.js
 │   └── LoginAttempt.js
@@ -462,13 +461,6 @@ All actions are logged:
 - Password changes
 - Permission changes
 - File uploads
-
-Access audit logs:
-```javascript
-// In controllers
-const AuditLog = require('../models/AuditLog');
-const logs = await AuditLog.find().populate('user');
-```
 
 ## 🎯 Next Steps
 
