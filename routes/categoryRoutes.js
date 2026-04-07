@@ -20,13 +20,11 @@ router.get(
 // Get all categories (authenticated users)
 router.get(
   '/',
-  authMiddleware.verifyToken,
   asyncHandler(categoryController.getAllCategories)
 );
 
 router.get(
   '/:id',
-  authMiddleware.verifyToken,
   asyncHandler(categoryController.getCategoryById)
 );
 
